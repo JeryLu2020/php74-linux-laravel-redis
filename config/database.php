@@ -91,6 +91,24 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'redis' => [
+
+            'client' => env('REDIS_CLIENT', 'predis'),
+            // 'cluster' => env('REDIS_CLUSTER_ENABLED', false),
+
+            'clusters' => [
+                'default' => [
+                    [
+                        'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+                        'password' => env('REDIS_PASSWORD', null),
+                        'port' => env('REDIS_PORT', 6379),
+                        'database' => 0,
+                    ],
+                ],
+            ],
+
+        ],
+
     ],
 
     /*
