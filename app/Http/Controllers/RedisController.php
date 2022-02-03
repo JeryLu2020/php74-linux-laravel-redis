@@ -38,9 +38,12 @@ class RedisController extends Controller
      */
     public function show($id)
     {
-        return view('user.profile', [
-            'user' => Redis::get('user:profile:'.$id)
-        ]);
+
+        // Redis::set('name', 'Taylor');
+        // $values = Redis::lrange('names', 5, 10);
+        $id = Redis::get('name');
+
+        return $id;
     }
 
     /**
@@ -53,6 +56,7 @@ class RedisController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**

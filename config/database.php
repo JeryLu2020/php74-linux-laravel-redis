@@ -46,11 +46,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'jery-mysql.mysql.database.azure.com'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'jery@jery-mysql'),
+            'password' => env('DB_PASSWORD', 'Qazxsw521'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -93,16 +93,21 @@ return [
 
         'redis' => [
 
-            'client' => env('REDIS_CLIENT', 'predis'),
-            // 'cluster' => env('REDIS_CLUSTER_ENABLED', false),
+            'client' => env('REDIS_CLIENT', 'phpredis'),
+            'cluster' => env('REDIS_CLUSTER_ENABLED', true),
+
+            'options' => [
+                'cluster' => env('REDIS_CLUSTER', 'redis'),
+            ],
 
             'clusters' => [
                 'default' => [
                     [
                         'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
-                        'password' => env('REDIS_PASSWORD', null),
+                        'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
                         'port' => env('REDIS_PORT', 6379),
                         'database' => 0,
+                        'read_write_timeout' => 60,
                     ],
                 ],
             ],
