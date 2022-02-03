@@ -57,7 +57,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            'engine' => 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4=',
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
@@ -66,7 +66,7 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'test-redis-cluster.redis.cache.windows.net'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
@@ -93,26 +93,69 @@ return [
 
         'redis' => [
 
-            'client' => env('REDIS_CLIENT', 'phpredis'),
+            'client' => env('REDIS_CLIENT', 'predis'),
             'cluster' => env('REDIS_CLUSTER_ENABLED', true),
+            'prefix_indexes' => false,
 
-            'options' => [
-                'cluster' => env('REDIS_CLUSTER', 'redis'),
-            ],
+            // 'clusters' => [
+            //     'default' => [
+            //         [
+            //             'scheme'   => env('REDIS_SCHEME', 'tcp'),
+            //             'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+            //             'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
+            //             'port' => env('REDIS_PORT', 6379),
+            //             'database' => env('REDIS_DATABASE', 0),
+            //         ],
+            //     ],
+            //     'options' => [ // Clustering specific options
+            //         'cluster' => 'redis', // This tells Redis Client lib to follow redirects (from cluster)
+            //     ]
+            // ],
+            // 'options' => [
+            //     'parameters' => [ // Parameters provide defaults for the Connection Factory
+            //         'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='), // Redirects need PW for the other nodes
+            //         'scheme'   => env('REDIS_SCHEME', 'tcp'),  // Redirects also must match scheme
+            //     ],
+            //     'ssl'    => ['verify_peer' => false], // Since we dont have TLS cert to verify
+            // ]
 
-            'clusters' => [
-                'default' => [
-                    [
-                        'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
-                        'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
-                        'port' => env('REDIS_PORT', 6379),
-                        'database' => 0,
-                        'read_write_timeout' => 60,
-                    ],
+            'clustered' => [
+                'client' => 'predis',
+                'cluster' => true,
+                'options' => [ 'cluster' => 'redis' ],
+                'clusters' => [
+                            [
+                                'host' => env('REDIS_SHARD_1_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+                                'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
+                                'port' => env('REDIS_SHARD_1_PORT', 6379),
+                                'database' => 0,
+                            ],
+                            [
+                                'host' => env('REDIS_SHARD_2_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+                                'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
+                                'port' => env('REDIS_SHARD_2_PORT', 6379),
+                                'database' => 0,
+                            ],
+                            [
+                                'host' => env('REDIS_SHARD_3_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+                                'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
+                                'port' => env('REDIS_SHARD_3_PORT', 6379),
+                                'database' => 0,
+                            ],
                 ],
             ],
 
+            // 'default' => [
+            //     'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+            //     'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
+            //     'port'     => 6379,
+            //     'database' => 0,
+            //     'cluster' => false,
+            // ],
+
+
         ],
+
 
     ],
 
@@ -151,16 +194,16 @@ return [
 
         'default' => [
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
+            'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+            'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_DB', '0'),
         ],
 
         'cache' => [
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
+            'host' => env('REDIS_HOST', 'test-redis-cluster.redis.cache.windows.net'),
+            'password' => env('REDIS_PASSWORD', 'g5C8VHlQNjSnbfR28zgy5Qa1lcTR9fkI8AzCaNHLXe4='),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
         ],

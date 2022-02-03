@@ -38,10 +38,11 @@ class RedisController extends Controller
      */
     public function show($id)
     {
+        // $client = Redis::client(['cluster' => 'redis']);
 
-        // Redis::set('name', 'Taylor');
+        // Redis::set('name1', 'Taylor1');
         // $values = Redis::lrange('names', 5, 10);
-        $id = Redis::get('name');
+        $id = Redis::get('name1');
 
         return $id;
     }
