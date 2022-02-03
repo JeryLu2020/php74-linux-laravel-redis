@@ -4,3 +4,4 @@
 
 参考以下文档测试/运行/部署Laravel
 https://docs.microsoft.com/en-us/azure/app-service/tutorial-php-mysql-app?pivots=platform-linux#connect-app-to-azure-mysql
+ 
